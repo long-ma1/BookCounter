@@ -38,7 +38,7 @@ public class NewCounterActivity extends AppCompatActivity {
                     setResult(AppCompatActivity.RESULT_CANCELED);
                     finish();
                 }
-                if (num>0) {
+                if (num>=0) {
                     Intent data = new Intent();
                     data.putExtra("name", name);
                     data.putExtra("number", num);

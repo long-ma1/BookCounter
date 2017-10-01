@@ -35,7 +35,7 @@ public class Counter {
 
     public String toString(){
         time = new Date();
-        return (name+"|"+comment+"\n"+String.valueOf(count));
+        return (name+"\n Comment:"+comment+"\n Count"+String.valueOf(count)+"\n Last Edited:"+time.toString());
     }
     public String get_name(){
         return name;
@@ -54,6 +54,10 @@ public class Counter {
     }
     public void set_comment(String comment){
         this.comment=comment;
+        time = new Date();
+    }
+    public void set_original(int newOrig){
+        this.initialValue=newOrig;
         time = new Date();
     }
 

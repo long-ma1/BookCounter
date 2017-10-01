@@ -35,6 +35,11 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
+// video at https://youtu.be/UY2V9OnpEs8
+// new vie at https://youtu.be/3jSSRbblNz8
+// to do comments
+
+
 public class MainActivity extends AppCompatActivity {
 
     private static final String FILENAME= "file1.sav";
@@ -112,8 +117,10 @@ public class MainActivity extends AppCompatActivity {
                     chosenCounter.setValue(newValue);
                     String newName = data.getStringExtra("name");
                     String newComment = data.getStringExtra("comment");
+                    int newOrig = data.getIntExtra("orig",0);
                     chosenCounter.set_name(newName);
                     chosenCounter.set_comment(newComment);
+                    chosenCounter.set_original(newOrig);
                     adapter.notifyDataSetChanged();
                     saveInFile();
                 }

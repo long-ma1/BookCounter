@@ -37,6 +37,9 @@ public class SelectedCounter extends AppCompatActivity {
         final TextView currentComment = (EditText) findViewById(R.id.CurrentComment);
         currentComment.setText(comment);
 
+        final TextView originalNumber = (EditText) findViewById(R.id.originalNumber);
+        originalNumber.setText(String.valueOf(original));
+
         TextView currentTime = (TextView) findViewById(R.id.LastTime);
         currentTime.setText("last edited:"+date.toString());
 
@@ -91,8 +94,17 @@ public class SelectedCounter extends AppCompatActivity {
                 data.putExtra("name",name);
                 comment = currentComment.getText().toString();
                 data.putExtra("comment",comment);
-                setResult(RESULT_OK, data);
-                finish();
+                try{
+                    original = Integer.parseInt(originalNumber.getText().toString());
+                    data.putExtra("orig",original);
+                    setResult(RESULT_OK, data);
+                    finish();
+                } catch (NumberFormatException na) {
+                    setResult(RESULT_CANCELED);
+                    finish();
+                }
+
+
             }
         });
         deleteButton.setOnClickListener(new View.OnClickListener() {
