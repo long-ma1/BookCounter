@@ -1,3 +1,11 @@
+/*
+ * CMPUT 301 LEC A1
+ *
+ * Version 3
+ * Sept 30. 2017
+ *
+ */
+
 package com.example.malon_000.bookcounter;
 
 import android.app.Activity;
@@ -35,34 +43,54 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 
-// video at https://youtu.be/UY2V9OnpEs8
+
 // new vie at https://youtu.be/3jSSRbblNz8
 // to do comments
 
-
+/**
+ * First screen displayed when the app starts up
+ * Displays the counters in a ListView
+ * Branchs out to other activities
+ *
+ * @author long6
+ * @version 3
+ *
+ */
 public class MainActivity extends AppCompatActivity {
 
-    private static final String FILENAME= "file1.sav";
+    private static final String FILENAME= "file1.sav"; //file to save the data in
 
-    private ListView CounterListView;
+    private ListView CounterListView; //initialize the listview
 
-    private ArrayList<Counter> countList;
-    private ArrayAdapter<Counter> adapter;
-    Counter chosenCounter;
+    private ArrayList<Counter> countList; //array of counters
+    private ArrayAdapter<Counter> adapter; //array adapter of counters
+    Counter chosenCounter; //counter pointing to the one chose nif user clicks on one in the listview
 
 
-
+    /**
+     *
+     * Starts when the app first starts
+     * prints starting screen
+     * @param savedInstanceState
+     * @return void
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
         CounterListView = (ListView) findViewById(R.id.CounterList);
-        //// TODO: 2017-09-25 remove this log
-        Log.v("trial","starts");
         CounterListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
-
+            /**
+             * Called when the user clicks on an item in the list of coutners on the screen
+             * Recieves which counter has been clicked on and calls SelectedCounter activity
+             * outs the details of the counter into intent so the new activity has access to them
+             * @param position clicked and view
+             * @return void
+             *
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Object a=CounterListView.getItemAtPosition(position);
@@ -83,7 +111,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
+    /**
+     * Called when the create new counter button is clicked
+     * Calls NewCounterActivity to create a new counter
+     *
+     * @param view
+     * @return void
+     *
+     */
     public void onClick(View view){
         Intent intent = new Intent(this,NewCounterActivity.class);
         startActivityForResult(intent,1);
@@ -91,9 +126,19 @@ public class MainActivity extends AppCompatActivity {
         //2017-09-24
     }
 
+    /**
+     * Handles after an activity called is done
+     * Displays the counters in a ListView
+     * Branchs out to other activities
+     * @param requestCode The code that determines which activity was just called
+     * @param resultCode A code to check if the result is satisafctory to use
+     * @param data datas that was saved after the activity finished
+     * @return void
+     *
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
+        if (requestCode == 1) { //if the activity was to create a new counter
             if (resultCode == Activity.RESULT_OK) {
                 String name = data.getStringExtra("name");
                 int start = data.getIntExtra("number", 0);
@@ -104,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
                 saveInFile();
             }
 
-        }
-        if (requestCode==2){
+        }else if (requestCode==2){ //if the activity was to change a previous counter
             if (resultCode==Activity.RESULT_OK) {
                 int newValue = data.getIntExtra("update",0);
                 if (newValue==-1){
@@ -131,7 +175,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+/**
+ * calls loadFromFile to get the data from saved files and initializes the array adapter
+ * @return Void
+ */
     @Override
     protected void onStart(){
         super.onStart();
@@ -140,7 +187,10 @@ public class MainActivity extends AppCompatActivity {
         CounterListView.setAdapter(adapter);
     }
 
-
+    /**
+     * Opens the save file and loads the data into an arrayList
+     * @return Void
+     */
     private void loadFromFile() {
         try {
             FileInputStream fis = openFileInput(FILENAME);
@@ -162,7 +212,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Saves the arrayList to a file using Gson
+     * @return Void
+     */
     private void saveInFile(){
         try{
             FileOutputStream fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
