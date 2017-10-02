@@ -44,9 +44,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-// new vie at https://youtu.be/3jSSRbblNz8
-// to do comments
-
 /**
  * First screen displayed when the app starts up
  * Displays the counters in a ListView
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ArrayList<Counter> countList; //array of counters
     private ArrayAdapter<Counter> adapter; //array adapter of counters
-    Counter chosenCounter; //counter pointing to the one chose nif user clicks on one in the listview
+    private Counter chosenCounter; //counter pointing to the one chose nif user clicks on one in the listview
 
 
     /**
